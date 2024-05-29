@@ -6,9 +6,7 @@
       <q-card-section>
         <div v-if="entity.name" class="text-h5">
             {{ entity.name }}
-        </div>
-        <div v-if="entity.category" class="text-subtitle1">
-          {{ entity.category }}
+            <q-badge v-if="entity.category" align="top">{{ entity.category }}</q-badge>
         </div>
         <div v-if="entity.brand" class="">
           <span class="text-weight-light">Производилель:</span> {{ entity.brand }}
@@ -29,8 +27,15 @@
       </q-card-section>
 
       <q-space></q-space>
+      <q-card-section>
+        {{entity}}
+      </q-card-section>
 
-      <q-card-section class="q-pt-none row items-center justify-around">
+      <q-card-section v-if="!entity.isAvailable" class="text-h5 text-weight-thin q-pt-none text-center row items-center justify-around">
+        Нет в наличии
+      </q-card-section>
+
+      <q-card-section   class="q-pt-none row items-center justify-around">
         <div class="product-card__price">{{ entity.price }}</div>
         <div v-if="getCountProductCart(entity.id) > 0" class="">
           <q-btn round color="primary" icon="add" @click="addToCart(entity)" />

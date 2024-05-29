@@ -37,7 +37,7 @@ export default defineComponent({
 
     to: {
       type: String,
-      default: '#'
+      default: ''
     },
 
     icon: {

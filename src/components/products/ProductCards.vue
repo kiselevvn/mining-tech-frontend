@@ -3,7 +3,7 @@
     <div class="col-12">
       <div class="row justify-center q-gutter-lg">
         <div class="col-12 col-lg-3 col-lg-2">
-          <q-select v-model="brand" multiple :options="getRefByName('brand')" label="Производилель" option-value="id" option-label="name" />
+          <q-select v-model="brand" multiple :options="getRefByName('brand')" label="Производитель" option-value="id" option-label="name" />
         </div>
         <div class="col-12 col-lg-3 col-lg-2">
           <q-select v-model="currencyMining" multiple :options="getRefByName('currency_mining')" label="Валюта"  option-value="id" option-label="name" />
@@ -15,7 +15,7 @@
           <q-select v-model="hashrate" multiple :options="getRefByName('hashrate')" label="Хешрейт"  option-value="id" option-label="name" />
         </div>
         <div class="col-12 col-lg-3 col-lg-2">
-          <q-select v-model="power" multiple :options="getRefByName('power')" label="Потреление энергии"  option-value="id" option-label="name" />
+          <q-select v-model="power" multiple :options="getRefByName('power')" label="Потребление энергии"  option-value="id" option-label="name" />
         </div>
         <div class="col-12 col-lg-3 col-lg-2 ">
           <div class="row justify-around">
@@ -176,7 +176,7 @@ export default defineComponent({
       // return filterString === '' ? null : filterString
       this.filterString = filterString === '' ? null : filterString
     },
-    scroll () {
+    autoScroll () {
       const bottomOfWindow =
         document.documentElement.scrollTop + window.innerHeight >=
         document.documentElement.offsetHeight / 1.2
@@ -184,6 +184,7 @@ export default defineComponent({
         this.loadNextProductPage()
       }
     }
+
   },
   watch: {
     brand (values) {
@@ -222,10 +223,10 @@ export default defineComponent({
     }
   },
   created () {
-    window.addEventListener('scroll', this.scroll)
+    // window.addEventListener('scroll', this.autoScroll)
   },
   unmounted () {
-    window.removeEventListener('scroll', this.scroll)
+    // window.removeEventListener('scroll', this.autoScroll)
   }
 })
 </script>

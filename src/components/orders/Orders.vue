@@ -3,7 +3,10 @@
     <div v-for="o in orders" :key="o.id" class="col-12 col-md-7 q-px-sm q-py-md">
       <q-card class="my-card" flat bordered>
         <q-card-section class="text-center">
-          <span>Заказ на сумму: {{o.price}} руб.</span>
+          <span>
+            Заказ на сумму: {{o.price}} руб.
+            <q-badge v-if="getColorStatus(o.status)" outline :color="getColorStatus(o.status)" :label="getTextStatus(o.status)" />
+          </span>
           <span></span>
         </q-card-section>
         <q-card-section class="row">
@@ -23,6 +26,16 @@
             </q-list>
           </div>
           <div class="col-12 col-sm-6">
+            <div v-if="o.invoice" class="column justify-center items-center">
+              <span class="">К оплате:</span>
+              <span class="text-h4 q-mb-md">{{o.invoice.result.amount}} {{o.invoice.result.currency.code}} </span>
+              <q-btn link size="md" v-if="o.invoice" color="primary" :href="o.invoice.result.link">
+                Оплатить
+              </q-btn>
+            </div>
+
+            <!-- <span v-if="checkDate(o.invoice)" class="subtitle">Часов до окончания: {{checkDate(o.invoice)}} </span> -->
+
           </div>
         </q-card-section>
       </q-card>
@@ -37,6 +50,7 @@
 import { defineComponent } from 'vue'
 // import { mapGetters, mapActions } from 'vuex'
 import { api } from 'boot/axios'
+import { date } from 'quasar'
 
 export default defineComponent({
   name: 'CreateOrder',
@@ -61,10 +75,56 @@ export default defineComponent({
       })
   },
   methods: {
-
+    // checkDate (invoice) {
+    //   if (invoice === {}) {
+    //     return false
+    //   }
+    //   const timeStamp = Date.now()
+    //   const formattedString = date.formatDate(invoice.expiry_date, 'YYYY-MM-DDTHH:mm:ss.SSSZ')
+    //   const diff = date.getDateDiff(formattedString, timeStamp, 'hours')
+    //   if (diff > 0) {
+    //     return false
+    //   }
+    //   return diff
+    // }
   },
   computed: {
-
+    checkDate () {
+      return (invoice) => {
+        if (invoice === {}) {
+          return false
+        }
+        const timeStamp = Date.now()
+        const formattedString = date.formatDate(invoice.result.expiryDate, 'YYYY-MM-DDTHH:mm:ss.SSSZ')
+        const diff = date.getDateDiff(formattedString, timeStamp, 'hours')
+        if (diff < 0) {
+          return false
+        }
+        return diff
+      }
+    },
+    getColorStatus () {
+      return (id) => {
+        if (id === 1) {
+          return 'primary'
+        } else if (id === 10) {
+          return 'Оплачен'
+        } else {
+          return false
+        }
+      }
+    },
+    getTextStatus () {
+      return (id) => {
+        if (id === 1) {
+          return 'Новый'
+        } else if (id === 10) {
+          return 'Оплачен'
+        } else {
+          return false
+        }
+      }
+    }
   }
 })
 </script>

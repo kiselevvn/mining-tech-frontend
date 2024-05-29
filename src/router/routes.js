@@ -1,7 +1,7 @@
 
 const routes = [
   {
-    path: '',
+    path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
@@ -44,7 +44,7 @@ const routes = [
         path: '/profile',
         name: 'profile',
         component: () => import('pages/profile/Profile.vue'),
-        meta: { title: 'Авторизация' }
+        meta: { title: 'Профиль' }
       }
     ]
   },

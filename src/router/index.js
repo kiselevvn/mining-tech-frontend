@@ -1,6 +1,7 @@
 import { route } from 'quasar/wrappers'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 import routes from './routes'
+import { LocalStorage } from 'quasar'
 
 /*
  * If not building with SSR mode, you can
@@ -10,7 +11,6 @@ import routes from './routes'
  * async/await or return a Promise which resolves
  * with the Router instance.
  */
-
 export default route(function ({ store /*, ssrContext */ }) {
   const createHistory = process.env.SERVER
     ? createMemoryHistory
@@ -27,11 +27,11 @@ export default route(function ({ store /*, ssrContext */ }) {
   })
 
   Router.beforeEach((to, from, next) => {
-    const loggedIn = localStorage.getItem('user')
-    console.log(loggedIn)
-    const publicPages = ['/login', '/register', '/products', '/cart']
+    const loggedIn = LocalStorage.getItem('user')
+    // console.log(loggedIn)
+    const publicPages = ['/login', '/login', '/login', '/register', '/products', '/cart', '/create-profile']
     const authRequired = !publicPages.includes(to.path)
-    console.log(authRequired)
+    // console.log(authRequired)
     // trying to access a restricted page + not logged in
     // redirect to login page
     if (authRequired && !loggedIn) {

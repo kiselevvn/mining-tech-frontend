@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header reveal>
       <q-toolbar>
         <!-- <q-btn
           flat
@@ -8,11 +8,11 @@
           round
           icon="menu"
           aria-label="Menu"
-          @click="toggleLeftDrawer"
+          @click="leftDrawerOpen = !leftDrawerOpen"
         /> -->
 
         <q-toolbar-title @click="this.$router.push({ name: 'products' })">
-          MiningTech / {{$route.meta.title}}
+          {{$route.meta.title}}
         </q-toolbar-title>
 
         <q-btn @click="this.$router.push({ name: 'orders' })" dense round flat icon="star">
@@ -27,8 +27,28 @@
         <LogoutButton></LogoutButton>
       </q-toolbar>
     </q-header>
-<!--
-    <q-drawer
+
+    <q-footer reveal
+    >
+        <div class="row">
+          <!-- <div class="col-12 col-md-6">
+            <div class="row content-center">
+            </div>
+          </div> -->
+          <div class="col-12">
+            <div class="q-pa-md row items-center justify-between">
+              <div>MiningTech &copy;</div>
+              <div class="">
+                <q-btn size="sx" flat round  icon="telegram" />
+                <q-btn size="sx" flat round  icon="phone" />
+                <q-btn size="sx" flat round  icon="mail" />
+              </div>
+            </div>
+          </div>
+        </div>
+    </q-footer>
+
+    <!-- <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
       bordered
@@ -39,16 +59,16 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+
   </q-layout>
 </template>
 
 <script>
 // import LeftDrawerItems from 'components/interface/LeftDrawerItems.vue'
 import LogoutButton from 'components/interface/LogoutButton.vue'
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { mapGetters } from 'vuex'
 import useUserInfo from 'src/hooks/user/useUserInfo'
-// import useLeftDrawerItems from 'src/hooks/useLeftDrawerItems'
 
 export default defineComponent({
   name: 'MainLayout',
@@ -57,25 +77,19 @@ export default defineComponent({
     // LeftDrawerItems,
     LogoutButton
   },
-
   computed: {
     ...mapGetters('cart', [
       'getCountCart'
     ])
   },
   mounted () {
-    // console.log(
-    //   this.leftDrawerOpen,
-    //   this.toggleLeftDrawer
-    // )
   },
   setup () {
-    // const { leftDrawerOpen, toggleLeftDrawer } = useLeftDrawerItems()
+    const leftDrawerOpen = ref(false)
     const { userInfo } = useUserInfo()
     return {
-      userInfo
-      // leftDrawerOpen,
-      // toggleLeftDrawer
+      userInfo,
+      leftDrawerOpen
     }
   }
 })

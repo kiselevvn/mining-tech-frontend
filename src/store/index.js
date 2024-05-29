@@ -3,7 +3,6 @@ import { createStore } from 'vuex'
 
 // import example from './module-example'
 import user from './module-user'
-import aplicationInterface from './module-aplication-interface'
 import setupInterceptors from './../service/setupInterceptors'
 import cart from './cart.js'
 
@@ -20,7 +19,6 @@ export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     modules: {
       user,
-      aplicationInterface,
       cart
     },
 

@@ -28,6 +28,7 @@ class TokenService {
   }
 
   removeUser () {
+    console.log('rawdawdawd')
     LocalStorage.remove('user')
   }
 }

@@ -5,35 +5,40 @@
     dense
   >
     <div class="row no-wrap q-pa-md">
-
-       <div class="column items-center">
-        {{userInfo}}
+       <div class="column">
+        <div class="text-h6 q-mb-md">Настройки</div>
+        <q-toggle class="q-mb-md" label="Ночной режим" color="primary" :model-value="$q.dark.isActive" @click="$q.dark.toggle()"/>
         <q-btn
           v-if="getLoggedIn"
           color="red"
           label="Выход"
           push
-          size="sm"
+          size="md"
           v-close-popup
           @click="logout()"
         />
-        <q-btn
-          v-else
-          @click="this.$router.push({ name: 'login' })"
-          color="green"
-          label="Войти"
-          push
-          size="sm"
-          v-close-popup
-        />
-      </div>
-      <q-separator vertical inset class="q-mx-lg" />
+        <div v-else class="column">
+          <q-btn
+            class="q-mb-md"
+            @click="this.$router.push({ name: 'create-profile' })"
+            color="green"
+            label="Регистрация"
+            push
+            size="md"
+            v-close-popup
+          />
 
-      <div class="column">
-        <div class="text-h6 q-mb-md">Настройки</div>
-        <q-toggle label="Ночной режим" :model-value="$q.dark.isActive" @click="$q.dark.toggle()"/>
-      </div>
+          <q-btn
+            @click="this.$router.push({ name: 'login' })"
+            color="primary"
+            label="Войти"
+            push
+            size="md"
+            v-close-popup
+          />
+        </div>
 
+      </div>
     </div>
   </q-btn-dropdown>
 </template>
@@ -41,7 +46,7 @@
 <script>
 import { defineComponent } from 'vue'
 import { mapGetters } from 'vuex'
-import EventBus from './../../service/user/EventBus'
+// import EventBus from './../../service/user/EventBus'
 
 export default defineComponent({
   name: 'LogoutButton',
@@ -53,7 +58,7 @@ export default defineComponent({
   },
   methods: {
     logout () {
-      EventBus.dispatch('logout')
+      this.$store.dispatch('user/logout')
     }
   }
 

@@ -1,21 +1,6 @@
 <template>
-  <div>
-    <q-expansion-item
-      icon="explore"
-      label="label"
-      caption="caption"
-      header-class=""
-      expand-icon-class=""
-    >
-      <q-card>
-        <q-card-section>
-          awd
-        </q-card-section>
-      </q-card>
-    </q-expansion-item>
-  </div>
   <q-list bordered padding>
-    <template v-for="sidebarItem in leftDrawerItems" :key="sidebarItem.key">
+    <!-- <template v-for="sidebarItem in leftDrawerItems" :key="sidebarItem.key">
       <q-item-label header >
         {{sidebarItem.title}}
       </q-item-label>
@@ -42,31 +27,87 @@
 
       <q-separator spaced  />
 
-    </template>
-
+    </template> -->
+    <q-item
+      exact
+      :to="{name:'products'}"
+    >
+      <q-item-section avatar >
+        <q-icon name="awd" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>Главная</q-item-label>
+      </q-item-section>
+    </q-item>
+    <q-item
+      exact
+      :to="{name:'products'}"
+    >
+      <q-item-section avatar >
+        <q-icon name="awd" />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>Корзина</q-item-label>
+      </q-item-section>
+    </q-item>
   </q-list>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import useLeftDrawerItems from 'src/hooks/useLeftDrawerItems'
-import useUserInfo from 'src/hooks/user/useUserInfo'
 
 export default defineComponent({
   name: 'LeftDrawerItems',
   setup (props) {
-    const { leftDrawerItems } = useLeftDrawerItems()
-    const { userInfo } = useUserInfo()
+    const leftDrawerItems = [
+      {
+        title: 'Основное меню',
+        items: [
+          {
+            title: 'Профиль',
+            to: 'profile',
+            icon: 'account_circle'
+          },
+          {
+            title: 'Настройки',
+            to: 'settings',
+            icon: 'settings'
+          },
+          {
+            title: 'Песочница',
+            to: 'sandbox',
+            icon: 'sandbox'
+          }
+        ]
+      },
+      {
+        title: 'Основное меню',
+        items: [
+          {
+            title: 'Профиль',
+            to: 'profile',
+            icon: 'account_circle'
+          },
+          {
+            title: 'Настройки',
+            to: 'settings',
+            icon: 'settings'
+          },
+          {
+            title: 'Песочница',
+            to: 'sandbox',
+            icon: 'sandbox'
+          }
+        ]
+      }
+    ]
+    // const { userInfo } = useUserInfo()
     return {
-      userInfo,
+      // userInfo,
       leftDrawerItems
     }
   },
   mounted () {
-    console.log(
-      this.userInfo,
-      this.leftDrawerItems
-    )
   }
 
 })

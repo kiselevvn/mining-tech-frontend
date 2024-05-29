@@ -34,9 +34,6 @@
               <div class="col-12 col-md-6 q-pa-xs">
                   <q-btn color="green" class="full-width" :disable="disableComponentStatus"  type="submit" label="Начало работы" />
               </div>
-              <div class="col-12 col-md-6 q-pa-xs">
-                  <q-btn color="amber" class="full-width" :disable="disableComponentStatus"  label="Сбросить пароль" />
-              </div>
             </div>
 
             <div class="row q-my-md">
@@ -76,8 +73,8 @@ export default defineComponent({
       message: '',
       passwordShow: true,
       user: {
-        username: 'admin',
-        password: 'admin'
+        username: '',
+        password: ''
       }
 
     }
