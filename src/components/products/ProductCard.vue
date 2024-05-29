@@ -27,9 +27,6 @@
       </q-card-section>
 
       <q-space></q-space>
-      <q-card-section>
-        {{entity}}
-      </q-card-section>
 
       <q-card-section v-if="!entity.isAvailable" class="text-h5 text-weight-thin q-pt-none text-center row items-center justify-around">
         Нет в наличии
