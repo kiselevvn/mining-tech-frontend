@@ -4,7 +4,7 @@
       <order-position v-for="p in getProducts" :key="p.id" :entity="p"></order-position>
     </div>
     <div class="row justify-center">
-      <q-btn v-if="getLoggedIn" :disabled="loading" @click="createOrder()" color="primary">Оформить заказ на сумму:</q-btn>
+      <q-btn v-if="getLoggedIn" :disabled="loading" @click="createOrder()" color="primary">Оформить заказ</q-btn>
       <div v-else class="column items-center">
         <span class="q-my-md">Для оформления заказа необходимо пройти авторизацию</span>
 
@@ -45,7 +45,7 @@ export default defineComponent({
         items: []
       }
       this.getProducts.forEach(e => {
-        data.items.push({ product: e.id, count: e.count })
+        data.items.push({ productId: e.id, count: e.count })
       })
       api.post('api/v1/orders/create/', data)
         .then(response => {
