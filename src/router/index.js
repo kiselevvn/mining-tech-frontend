@@ -1,5 +1,5 @@
 import { route } from 'quasar/wrappers'
-import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import routes from './routes'
 import { LocalStorage } from 'quasar'
 
@@ -12,9 +12,9 @@ import { LocalStorage } from 'quasar'
  * with the Router instance.
  */
 export default route(function ({ store /*, ssrContext */ }) {
-  const createHistory = process.env.SERVER
-    ? createMemoryHistory
-    : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory)
+  // const createHistory = process.env.SERVER
+  //   ? createMemoryHistory
+  //   : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory)
 
   const Router = createRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
@@ -23,7 +23,8 @@ export default route(function ({ store /*, ssrContext */ }) {
     // Leave this as is and make changes in quasar.conf.js instead!
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
-    history: createHistory(process.env.MODE === 'ssr' ? void 0 : process.env.VUE_ROUTER_BASE)
+    // history: createHistory(process.env.MODE === 'ssr' ? void 0 : process.env.VUE_ROUTER_BASE)
+    history: createWebHistory('/')
   })
 
   Router.beforeEach((to, from, next) => {
@@ -31,9 +32,11 @@ export default route(function ({ store /*, ssrContext */ }) {
     // console.log(loggedIn)
     const publicPages = ['/login', '/login', '/login', '/register', '/products', '/cart', '/create-profile']
     const authRequired = !publicPages.includes(to.path)
-    // console.log(authRequired)
     // trying to access a restricted page + not logged in
     // redirect to login page
+    if (to.path === '/') {
+      next({ name: 'products' })
+    }
     if (authRequired && !loggedIn) {
       console.log('redirect login')
       next({ name: 'products' })
