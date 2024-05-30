@@ -68,7 +68,7 @@
 import LogoutButton from 'components/interface/LogoutButton.vue'
 import { defineComponent, ref } from 'vue'
 import { mapGetters } from 'vuex'
-import useUserInfo from 'src/hooks/user/useUserInfo'
+// import useUserInfo from 'src/hooks/user/useUserInfo'
 
 export default defineComponent({
   name: 'MainLayout',
@@ -86,9 +86,9 @@ export default defineComponent({
   },
   setup () {
     const leftDrawerOpen = ref(false)
-    const { userInfo } = useUserInfo()
+    // const { userInfo } = useUserInfo()
     return {
-      userInfo,
+      // userInfo,
       leftDrawerOpen
     }
   }
