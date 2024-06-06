@@ -1,60 +1,86 @@
 <template>
-  <q-list bordered padding>
-    <!-- <template v-for="sidebarItem in leftDrawerItems" :key="sidebarItem.key">
-      <q-item-label header >
-        {{sidebarItem.title}}
-      </q-item-label>
-      <q-item
-        exact
-        v-for="menuItem in sidebarItem.items"
-        :key="menuItem.key"
-        :to="{name:menuItem.to}"
-      >
-        <q-item-section
-          v-if="menuItem.icon"
-          avatar
+<div class="column justify-between">
+  <div class="">
+      <q-list bordered padding >
+        <q-item
+          exact
+          :to="{name:'products'}"
         >
-          <q-icon :name="menuItem.icon" />
-        </q-item-section>
-
-        <q-item-section>
-          <q-item-label>{{ menuItem.title }}</q-item-label>
-          <q-item-label v-if="menuItem.caption" caption>
-            {{ menuItem.caption }}
-          </q-item-label>
-        </q-item-section>
-      </q-item>
-
-      <q-separator spaced  />
-
-    </template> -->
-    <q-item
-      exact
-      :to="{name:'products'}"
-    >
-      <q-item-section avatar >
-        <q-icon name="awd" />
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>Главная</q-item-label>
-      </q-item-section>
-    </q-item>
-    <q-item
-      exact
-      :to="{name:'products'}"
-    >
-      <q-item-section avatar >
-        <q-icon name="awd" />
-      </q-item-section>
-      <q-item-section>
-        <q-item-label>Корзина</q-item-label>
-      </q-item-section>
-    </q-item>
-  </q-list>
+          <q-item-section avatar >
+            <q-icon name="awd" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Товары</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item
+          exact
+          :to="{name:'profile'}"
+        >
+          <q-item-section avatar >
+            <q-icon name="profile" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Профиль</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item
+          exact
+          :to="{name:'orders'}"
+        >
+          <q-item-section avatar >
+            <q-icon name="pc" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Заказы</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item
+          exact
+          :to="{name:'cart'}"
+        >
+          <q-item-section avatar >
+            <q-icon name="pc" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>
+              Корзина
+              <q-badge v-if="getCountCart !== 0" color="green-7" transparent>
+                {{getCountCart}}
+              </q-badge>
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <!-- <q-item
+          exact
+          click=""
+        >
+          <q-item-section avatar >
+            <q-icon name="pc" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>
+              Выход
+               <q-badge v-if="getCountCart !== 0" color="green-9" floating transparent>
+                {{getCountCart}}
+              </q-badge>
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-separator /> -->
+      </q-list>
+  </div>
+  <!-- <div class="">
+    <q-btn flat color="green-6" label="Flat" />
+    <q-btn flat color="red-9" label="Flat" />
+  </div> -->
+</div>
+<!--  -->
 </template>
 
 <script>
 import { defineComponent } from 'vue'
+import { mapGetters } from 'vuex'
 
 export default defineComponent({
   name: 'LeftDrawerItems',
@@ -107,8 +133,10 @@ export default defineComponent({
       leftDrawerItems
     }
   },
-  mounted () {
+  computed: {
+    ...mapGetters('cart', [
+      'getCountCart'
+    ])
   }
-
 })
 </script>

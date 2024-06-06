@@ -1,5 +1,6 @@
 <template>
   <div class="col-12 col-md-3 col-lg-3 q-px-sm q-py-md">
+    <q-intersection transition="scale" once>
     <q-card class="product-card">
       <q-img v-if="entity.mainPicture" :src="entity.mainPicture" mod="cover" style="max-height: 250px;">
       </q-img>
@@ -45,6 +46,7 @@
       </q-card-section>
 
     </q-card>
+    </q-intersection>
   </div>
 </template>
 

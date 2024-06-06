@@ -4,7 +4,10 @@
       <order-position v-for="p in getProducts" :key="p.id" :entity="p"></order-position>
     </div>
     <div class="row justify-center">
-      <q-btn v-if="getLoggedIn" :disabled="loading" @click="createOrder()" color="primary">Оформить заказ</q-btn>
+      <div v-if="getLoggedIn" class="row">
+        <q-btn  :disabled="address == null" @click="createOrder()" color="primary" class="q-ma-md">Оформить заказ</q-btn>
+        <q-select style="min-width:250px;" v-model="address" :options="addresses" option-value="id" option-label="value" label="Адрес доставки" class="q-ma-md" />
+      </div>
       <div v-else class="column items-center">
         <span class="q-my-md">Для оформления заказа необходимо пройти авторизацию</span>
 
@@ -20,7 +23,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -36,7 +38,9 @@ export default defineComponent({
   },
   data () {
     return {
-      loading: false
+      loading: false,
+      addresses: [],
+      address: null
     }
   },
   methods: {
@@ -61,6 +65,11 @@ export default defineComponent({
     ...mapActions('cart', [
       'cleanCart'
     ])
+  },
+  created () {
+    this.$api.get('api/v1/users/detail/').then(response => {
+      this.addresses = response.data.addresses
+    })
   },
   computed: {
     ...mapGetters('cart', [

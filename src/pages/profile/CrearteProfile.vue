@@ -11,9 +11,25 @@
               v-model="user.username"
               type="email"
               :outlined="true"
+              mask="*@*"
               label="Электронная почта"
               class="q-mb-md"
               />
+            <q-input
+              v-model="user.phone"
+              type="tel"
+              :outlined="true"
+              label="Телефон"
+              class="q-mb-md"
+              mask="+7 (###) ###-##-##"
+              />
+            <q-input
+              v-model="user.address"
+              :outlined="true"
+              label="Адрес доставки"
+              class="q-mb-md"
+              />
+
             <q-input
               v-model="user.password1"
               :type="passwordShow ? 'password' : 'text'"
@@ -49,15 +65,21 @@
                   <q-btn color="green" class="full-width" :disable="user.password2 === '' || user.password1 !== user.password2 || disableComponentStatus"  type="submit" label="Создать учетную запись" />
               </div>
             </div>
-
             <div class="row q-my-md">
               <div class="col-12">
-                <div v-if="message !==''" class="text-weight-bolder text-center text-body1 text-negative">
-                  {{message}}
-                </div>
               </div>
             </div>
           </q-form>
+          <q-dialog v-model="dialogErrors" position="bottom" auto-close >
+            <q-banner inline-actions class="text-white bg-red">
+            <div v-if="messages">
+            <span v-for="(m, i) in messages" :key="i">{{m}}</span><br>
+          </div>
+            <template v-slot:action>
+              <q-btn flat color="white" label="Ок" />
+            </template>
+          </q-banner>
+        </q-dialog>
         </div>
       </div>
     </div>
@@ -65,7 +87,7 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import useDisableCompponent from 'src/hooks/useDisableCompponent'
 export default defineComponent({
   name: 'Login',
@@ -75,21 +97,24 @@ export default defineComponent({
       enable,
       disableComponentStatus
     } = useDisableCompponent()
-
+    const dialogErrors = ref(false)
     return {
       disable,
       enable,
-      disableComponentStatus
+      disableComponentStatus,
+      dialogErrors
     }
   },
   data () {
     return {
-      message: '',
+      messages: null,
       passwordShow: true,
       user: {
-        username: '',
-        password1: '',
-        password2: ''
+        username: 'adminadmin@aadmin.ru',
+        phone: '',
+        address: 'ddddd',
+        password1: 'admin',
+        password2: 'admin'
       }
 
     }
@@ -101,9 +126,18 @@ export default defineComponent({
       this.disable()
       this.$api.post('api/v1/users/create/', {
         username: this.user.username,
-        password: this.user.password1
+        password: this.user.password1,
+        address: this.user.address !== '' ? this.user.address : undefined,
+        phone: this.user.phone !== '' ? this.user.phone : undefined
       }).then(() => {
+        this.messages = null
         this.$router.push({ name: 'login' })
+        this.enable()
+      }).catch(error => {
+        this.dialogErrors = true
+        console.log(error)
+
+        this.messages = error.response.data.nonFieldErrors
         this.enable()
       })
     }

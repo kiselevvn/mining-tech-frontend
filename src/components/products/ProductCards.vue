@@ -55,10 +55,13 @@
       <div v-if="productList.length > 0" class="row q-my-xl">
         <product-card v-for="product in productList" :key="product.id" :entity="product"></product-card>
       </div>
+      <div v-else class="row justify-around">
+        <q-spinner-tail color="blue-grey" class size="4em" />
+      </div>
     </div>
-    <div v-if="loading" class="row justify-around">
-      <q-spinner-tail color="blue-grey" size="4em" />
-    </div>
+    <!-- <div v-if="loading" class="row justify-around">
+      <q-spinner-tail color="blue-grey" class size="4em" />
+    </div> -->
   </div>
 </template>
 
@@ -223,10 +226,10 @@ export default defineComponent({
     }
   },
   created () {
-    // window.addEventListener('scroll', this.autoScroll)
+    window.addEventListener('scroll', this.autoScroll)
   },
   unmounted () {
-    // window.removeEventListener('scroll', this.autoScroll)
+    window.removeEventListener('scroll', this.autoScroll)
   }
 })
 </script>
