@@ -21,6 +21,12 @@ const routes = [
         name: 'products',
         component: () => import('pages/products/Products.vue'),
         meta: { title: 'Товары' }
+      },
+      {
+        path: '/privacy',
+        name: 'privacy',
+        component: () => import('pages/services/Privacy.vue'),
+        meta: { title: 'Политика в отношении обработки персональных данных' }
       }
     ]
   },

@@ -61,14 +61,19 @@
               </template>
             </q-input>
             <div class="row justify-center">
-              <div class="col-12 col-md-6 q-pa-xs">
-                <q-btn
-                  color="green"
-                  class="full-width"
-                  :disable="user.password2 === '' || user.password1 !== user.password2 || disableComponentStatus"
-                  type="submit"
-                  label="Создать учетную запись"
-                />
+              <div class="col-12">
+                <div class="text-center">
+                  <q-checkbox v-model="privacyAgree" />
+                  Я ознакомлен с - <router-link  class="text-subtitle1 cursor-pointer" :to="{ name: 'privacy' }" >политикой в отношении обработки персональных данных</router-link>
+                  <q-btn
+                    color="green"
+                    size="lg"
+                    class="q-ma-md q-pa-md "
+                    :disable="!privacyAgree || user.password2 === '' || user.password1 !== user.password2 || disableComponentStatus"
+                    type="submit"
+                    label="Создать учетную запись"
+                  />
+                </div>
               </div>
             </div>
             <div class="row q-my-md">
@@ -109,9 +114,10 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import useDisableCompponent from 'src/hooks/useDisableCompponent'
+
 export default defineComponent({
   name: 'Login',
-  setup() {
+  setup () {
     const {
       disable,
       enable,
@@ -125,10 +131,11 @@ export default defineComponent({
       dialogErrors
     }
   },
-  data() {
+  data () {
     return {
       messages: null,
       passwordShow: true,
+      privacyAgree: false,
       user: {
         username: '',
         phone: '',
@@ -139,10 +146,10 @@ export default defineComponent({
 
     }
   },
-  created() {
+  created () {
   },
   methods: {
-    submitForm() {
+    submitForm () {
       this.disable()
       this.$api.post('api/v1/users/create/', {
         username: this.user.username,

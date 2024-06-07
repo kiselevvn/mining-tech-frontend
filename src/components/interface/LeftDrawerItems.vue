@@ -1,6 +1,9 @@
 <template>
 <div class="column justify-between">
   <div class="">
+      <div class="text-center q-py-lg">
+        <span class="text-h4">MiningTech</span>
+      </div>
       <q-list bordered padding >
         <q-item
           exact

@@ -37,7 +37,8 @@
           </div> -->
           <div class="col-12">
             <div class="q-pa-md row items-center justify-between">
-              <div>MiningTech &copy;</div>
+              <div>MiningTech &copy; <br> <router-link  class="text-white text-subtitle1 cursor-pointer" :to="{ name: 'privacy' }" >Политика в отношении обработки персональных данных</router-link></div>
+
               <div class="">
                 <q-btn size="sx" flat round  icon="telegram" />
                 <q-btn size="sx" flat round  icon="phone" />

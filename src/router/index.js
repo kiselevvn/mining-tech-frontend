@@ -30,7 +30,7 @@ export default route(function ({ store /*, ssrContext */ }) {
   Router.beforeEach((to, from, next) => {
     const loggedIn = LocalStorage.getItem('user')
     // console.log(loggedIn)
-    const publicPages = ['/login', '/login', '/login', '/register', '/products', '/cart', '/create-profile']
+    const publicPages = ['/', '/login', '/login', '/login', '/register', '/products', '/cart', '/create-profile', '/privacy']
     const authRequired = !publicPages.includes(to.path)
     // trying to access a restricted page + not logged in
     // redirect to login page

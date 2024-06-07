@@ -5,7 +5,7 @@
     </div>
     <div class="row justify-center">
       <div v-if="getLoggedIn" class="row">
-        <q-btn  :disabled="address == null" @click="createOrder()" color="primary" class="q-ma-md">Оформить заказ</q-btn>
+        <q-btn  :disabled="address == null" @click="createOrder(address.id)" color="primary" class="q-ma-md">Оформить заказ</q-btn>
         <q-select style="min-width:250px;" v-model="address" :options="addresses" option-value="id" option-label="value" label="Адрес доставки" class="q-ma-md" />
       </div>
       <div v-else class="column items-center">
