@@ -3,11 +3,13 @@
     <div v-for="o in orders" :key="o.id" class="col-12 col-md-7 q-px-sm q-py-md">
       <q-card class="my-card" flat bordered>
         <q-card-section class="text-center">
-
           <span>
             <span class="text-bold">{{o.price}}</span> руб.
             <q-badge v-if="getColorStatus(o.status)" outline :color="getColorStatus(o.status)" :label="o.statusName" />
           </span>
+          <br>
+          {{o.address}}
+
         </q-card-section>
         <q-card-section class="row">
           <div class="col-12 col-sm-6">

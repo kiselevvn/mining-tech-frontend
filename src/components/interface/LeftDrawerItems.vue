@@ -2,7 +2,14 @@
 <div class="column justify-between">
   <div class="">
       <div class="text-center q-py-lg">
-        <span class="text-h4">MiningTech</span>
+        <div class="">
+          <h2 class="q-ma-none text-h4 text-bold">MiningTech</h2>
+
+          <span class="text-subtitle">
+            Магазин оборудования и акссесураов <br>
+            для майнинга криптовалют
+          </span>
+        </div>
       </div>
       <q-list bordered padding >
         <q-item
@@ -14,28 +21,6 @@
           </q-item-section>
           <q-item-section>
             <q-item-label>Товары</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item
-          exact
-          :to="{name:'profile'}"
-        >
-          <q-item-section avatar >
-            <q-icon name="profile" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Профиль</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item
-          exact
-          :to="{name:'orders'}"
-        >
-          <q-item-section avatar >
-            <q-icon name="pc" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Заказы</q-item-label>
           </q-item-section>
         </q-item>
         <q-item
@@ -54,23 +39,72 @@
             </q-item-label>
           </q-item-section>
         </q-item>
-        <!-- <q-item
+        <q-item
+          v-if="!getLoggedIn"
           exact
-          click=""
+          :to="{name:'create-profile'}"
+        >
+          <q-item-section avatar >
+            <q-icon name="awd" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Регистрация</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item
+          v-if="!getLoggedIn"
+          exact
+          :to="{name:'login'}"
+        >
+          <q-item-section avatar >
+            <q-icon name="awd" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Авторизация</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item
+          v-if="getLoggedIn"
+          exact
+          :to="{name:'profile'}"
+        >
+          <q-item-section avatar >
+            <q-icon name="profile" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Профиль</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item
+          v-if="getLoggedIn"
+          exact
+          :to="{name:'orders'}"
         >
           <q-item-section avatar >
             <q-icon name="pc" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>
-              Выход
-               <q-badge v-if="getCountCart !== 0" color="green-9" floating transparent>
-                {{getCountCart}}
-              </q-badge>
-            </q-item-label>
+            <q-item-label>Заказы</q-item-label>
           </q-item-section>
         </q-item>
-        <q-separator /> -->
+
+        <!-- <q-item
+          v-if="getLoggedIn"
+          exact
+          @click="logout()"
+        >
+        <q-item-section>
+          <q-btn
+            color="red"
+            label="Выход"
+            push
+            size="md"
+            v-close-popup
+            @click="logout()"
+          />
+          </q-item-section>
+
+        </q-item> -->
       </q-list>
   </div>
   <!-- <div class="">
@@ -139,7 +173,16 @@ export default defineComponent({
   computed: {
     ...mapGetters('cart', [
       'getCountCart'
+    ]),
+    ...mapGetters('user', [
+      'getLoggedIn'
     ])
+  },
+  methods: {
+    logout () {
+      this.$store.dispatch('user/logout')
+    }
   }
+
 })
 </script>

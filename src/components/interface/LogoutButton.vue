@@ -52,7 +52,6 @@ export default defineComponent({
   name: 'LogoutButton',
   computed: {
     ...mapGetters('user', [
-      'userInfo',
       'getLoggedIn'
     ])
   },

@@ -1,9 +1,36 @@
 <template>
-  <div class="col-12 col-md-3 col-lg-3 q-px-sm q-py-md">
+  <div class="col-12 col-md-4 col-lg-3 q-px-sm q-py-md">
     <q-intersection transition="scale" once>
     <q-card class="product-card">
-      <q-img v-if="entity.mainPicture" :src="entity.mainPicture" mod="cover" style="max-height: 250px;">
-      </q-img>
+      <!-- <q-img v-if="entity.mainPicture" :src="entity.mainPicture" mod="cover" style="max-height: 250px;">
+      </q-img> -->
+      <q-card-section v-if="entity.pictures.length > 0">
+        <q-carousel
+          animated
+          v-model="activeSlide"
+          arrows
+          infinite
+        >
+          <q-carousel-slide v-for="(slide, i) in entity.pictures" :name="i" :img-src="slide.image" :key="i"/>
+
+          <!-- <template v-slot:control>
+            <q-carousel-control
+              position="top-right"
+              :offset="[18, 18]"
+              style="background: rgba(0, 0, 0, .3); padding: 4px 8px; border-radius:50%"
+            >
+              <q-btn
+                push round dense color="orange" text-color="black" icon="magnify"
+                @click="$refs.carousel.previous()"
+              >
+              <q-icon name="mdi mdi-magnify-plus" />
+              </q-btn>
+            </q-carousel-control>
+          </template> -->
+
+        </q-carousel>
+      </q-card-section>
+
       <q-card-section>
         <div v-if="entity.name" class="text-h5">
             {{ entity.name }}
@@ -33,7 +60,7 @@
         Нет в наличии
       </q-card-section>
 
-      <q-card-section   class="q-pt-none row items-center justify-around">
+      <q-card-section  v-if="entity.isAvailable" class="q-pt-none row items-center justify-around">
         <div class="product-card__price">{{ entity.price }}</div>
         <div v-if="getCountProductCart(entity.id) > 0" class="">
           <q-btn round color="primary" icon="add" @click="addToCart(entity)" />
@@ -56,6 +83,11 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default defineComponent({
   name: 'ProductCard',
+  data () {
+    return {
+      activeSlide: 1
+    }
+  },
   props: {
     entity: {
       required: true

@@ -1,23 +1,23 @@
 <template>
   <div class="row items-start justify-around">
     <div class="col-12">
-      <div class="row justify-center q-gutter-lg">
-        <div class="col-12 col-lg-3 col-lg-2">
+      <div class="row justify-centerq-my-md">
+        <div class="col-12 col-lg-3 col-lg-2 q-pa-md">
           <q-select v-model="brand" multiple :options="getRefByName('brand')" label="Производитель" option-value="id" option-label="name" />
         </div>
-        <div class="col-12 col-lg-3 col-lg-2">
+        <div class="col-12 col-lg-3 col-lg-2 q-pa-md">
           <q-select v-model="currencyMining" multiple :options="getRefByName('currency_mining')" label="Валюта"  option-value="id" option-label="name" />
         </div>
-        <div class="col-12 col-lg-3 col-lg-2">
+        <div class="col-12 col-lg-3 col-lg-2 q-pa-md">
           <q-select v-model="algorithm" multiple :options="getRefByName('algorithm')" label="Алгоритм"  option-value="id" option-label="name" />
         </div>
-        <div class="col-12 col-lg-3 col-lg-2">
+        <div class="col-12 col-lg-3 col-lg-2 q-pa-md">
           <q-select v-model="hashrate" multiple :options="getRefByName('hashrate')" label="Хешрейт"  option-value="id" option-label="name" />
         </div>
-        <div class="col-12 col-lg-3 col-lg-2">
+        <div class="col-12 col-lg-3 col-lg-2 q-pa-md">
           <q-select v-model="power" multiple :options="getRefByName('power')" label="Потребление энергии"  option-value="id" option-label="name" />
         </div>
-        <div class="col-12 col-lg-3 col-lg-2 ">
+        <div class="col-12 col-lg-3 col-lg-2  q-pa-md">
           <div class="row justify-around">
             <q-input
               class="col-5"
@@ -37,7 +37,7 @@
         </div>
       </div>
       <div class="row justify-center q-gutter-lg q-mt-md">
-        <div class="col-12 col-md-6 col-lg-5">
+        <div class="col-12 col-md-6 col-lg-5 q-pa-md">
           <div class="row items-center">
             <q-input
               v-model="name"
@@ -146,33 +146,41 @@ export default defineComponent({
         name: this.name ? this.name : null
       }
       let filterString = ''
+
       for (const key in filter) {
         const value = filter[key]
         filterString += value ? `${key}=${filter[key]}&` : ''
       }
+
       if (this.brand) {
+        filterString += '&brand='
         this.brand.forEach(e => {
-          filterString += `brand=${e.id}&`
+          filterString += `${e.id}-`
         })
       }
+
       if (this.algorithm) {
+        filterString += '&algorithm='
         this.algorithm.forEach(e => {
-          filterString += `algorithm=${e.id}&`
+          filterString += `${e.id}-`
         })
       }
       if (this.hashrate) {
+        filterString += '&hashrate='
         this.hashrate.forEach(e => {
-          filterString += `hashrate=${e.id}&`
+          filterString += `${e.id}-`
         })
       }
       if (this.power) {
+        filterString += '&power='
         this.power.forEach(e => {
-          filterString += `power=${e.id}&`
+          filterString += `${e.id}-`
         })
       }
       if (this.currencyMining) {
+        filterString += '&currency_mining='
         this.currencyMining.forEach(e => {
-          filterString += `currency_mining=${e.id}&`
+          filterString += `${e.id}-`
         })
       }
       // console.log(filterString)
