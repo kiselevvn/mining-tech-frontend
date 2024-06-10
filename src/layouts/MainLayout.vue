@@ -39,11 +39,11 @@
               <div>MiningTech &copy; <br> <router-link  class="text-white text-subtitle1 cursor-pointer" :to="{ name: 'privacy' }" >Политика в отношении обработки персональных данных</router-link></div>
 
               <div class="">
-                <q-btn href="https://t.me/mining_tech" size="sx" flat label="Телеграм"  icon="telegram"  />
+                <q-btn  target="_blank" href="https://t.me/mining_tech" size="sx" flat label="Телеграм"  icon="telegram"  />
 
-                <q-btn href="https://www.avito.ru/user/137eda9b6606b82a2532bdc6e7889548/profile/all?src=search_seller_info&sellerId=137eda9b6606b82a2532bdc6e7889548" size="sx" flat  label="Авито" icon="shop" />
+                <q-btn  target="_blank" href="https://www.avito.ru/user/137eda9b6606b82a2532bdc6e7889548/profile/all?src=search_seller_info&sellerId=137eda9b6606b82a2532bdc6e7889548" size="sx" flat  label="Авито" icon="shop" />
 
-                <q-btn href="https://t.me/andromain" size="sx" flat label="Менеджер продаж"  icon="telegram" />
+                <q-btn  target="_blank" href="https://t.me/andromain" size="sx" flat label="Менеджер продаж"  icon="telegram" />
 
               </div>
             </div>
