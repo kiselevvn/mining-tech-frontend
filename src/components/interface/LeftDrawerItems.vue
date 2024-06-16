@@ -3,7 +3,11 @@
   <div class="">
       <div class="text-center q-py-lg">
         <div class="">
-          <h2 class="q-ma-none text-h4 text-bold">MiningTech</h2>
+          <div class="logo">
+            <div class="t1"></div>
+            <div class="t2"></div>
+          </div>
+          <h2 class="q-ma-none text-h4 text-bold text-upper">MINING TECH</h2>
 
           <span class="text-subtitle">
             Магазин оборудования и акссесураов <br>
@@ -186,3 +190,26 @@ export default defineComponent({
 
 })
 </script>
+
+<style>
+.logo {
+  display:flex;
+  position: relative;
+  width: 100%;
+  height: 90px;
+}
+.logo .t1 {
+  border: 4rem solid transparent; border-bottom: 4rem solid #333238;
+  position: absolute;
+  bottom: 10px;
+  left: 45px;
+  z-index: 2;
+}
+.logo .t2 {
+  border: 5rem solid transparent; border-bottom: 5rem solid #4B7EFE;
+  position: absolute;
+  bottom: 10px;
+  right: 45px;
+
+}
+</style>
